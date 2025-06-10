@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -14,7 +14,7 @@ class LoginController extends Controller
         return view('auth.admin.login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -22,7 +22,7 @@ class LoginController extends Controller
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         }
 
-        return back()->withErrors(['email' => '認証に失敗しました']);
+        return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
     }
 
     public function logout()
