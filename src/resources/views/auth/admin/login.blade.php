@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="login-container">
-    <p class="title">ログイン</p>
-    <form class="form" action="/login" method="post">
+    <p class="title">管理者ログイン</p>
+    <form class="form" action="/admin/login" method="post">
         @csrf
         <div class="form-group">
             <label for="email">メールアドレス</label>
@@ -24,10 +24,7 @@
             @enderror
         </div>
         <div class="form-group">
-            <button type="submit">ログインする</button>
-        </div>
-        <div class="form-group">
-            <a href="/register">会員登録はこちら</a>
+            <button type="submit">管理者ログインする</button>
         </div>
     </form>
 </div>

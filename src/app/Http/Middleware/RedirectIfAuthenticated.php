@@ -30,7 +30,7 @@ class RedirectIfAuthenticated
                 }
 
                 // 一般ユーザー
-                return redirect('/attendance/list');
+                return redirect('/attendance');
             }
         }
 

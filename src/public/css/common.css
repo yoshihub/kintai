@@ -20,29 +20,20 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-left: auto;
 }
 
 .nav-links a {
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
-}
-
-.sell-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 .logout-button {
     background: none;
     border: none;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     padding-bottom: 3px;
 }

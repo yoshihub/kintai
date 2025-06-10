@@ -78,6 +78,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Fortify Redirects
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the redirect paths for various authentication
+    | actions. You can set different paths for specific actions like login,
+    | logout, password reset, etc.
+    |
+    */
+
+    'redirects' => [
+        'logout' => '/login',  // ログアウト後のリダイレクト先
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain
     |--------------------------------------------------------------------------
     |
