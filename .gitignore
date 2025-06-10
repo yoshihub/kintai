@@ -1,0 +1,6 @@
+# Docker関連ファイル
+docker/mysql/data/
+.DS_Store
+
+# 既存の.gitignoreファイルを含める
+src/.gitignore
