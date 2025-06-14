@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AttendanceListController;
-use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Fortify;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -14,19 +14,24 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])->name('attendance.breakEnd');
 });
 
-Route::middleware(['guest:admin'])->group(
-    function () {
-        // 管理者ログインフォーム表示
-        Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
+Route::middleware(['guest'])->group(function () {
+    // 一般ユーザーログインフォーム表示
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    // 一般ユーザーログイン処理
+    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+});
 
-        // 管理者ログイン処理
-        Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login.submit');
-    }
-);
-
-// 管理者ログアウト処理
-Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list', [AttendanceListController::class, 'index']);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // 管理者ログインフォーム表示
+    Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest:admin')->name('login');
+    // 管理者ログイン処理
+    Route::post('login', [AdminLoginController::class, 'login'])->middleware('guest:admin')->name('login.submit');
+    // 管理者ログアウト
+    Route::post('logout', [AdminLoginController::class, 'logout'])->middleware('auth:admin')->name('logout');
 });

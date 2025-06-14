@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,15 +10,15 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.admin.login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->intended('/admin/attendance/list');
+        if (Auth::guard('web')->attempt($credentials)) {
+            return redirect()->intended('/attendance');
         }
 
         return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
@@ -26,9 +26,9 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/admin/login');
+        return redirect('/login');
     }
 }
