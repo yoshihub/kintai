@@ -1,3 +1,7 @@
+body {
+    background-color: #FFFFFF;
+}
+
 .login-container {
     text-align: center;
     padding: 20px;

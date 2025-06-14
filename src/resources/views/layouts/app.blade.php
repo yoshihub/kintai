@@ -26,7 +26,7 @@
                 <a href="#">申請一覧</a>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
-                    <button type="submit" class="logout-button">ログアウト</button>
+                    <button type="submit" class="logout-button">管理者ログアウト</button>
                 </form>
             </nav>
             @elseif (Auth::check())
@@ -57,6 +57,8 @@
 
         @yield('content')
     </main>
+
+    @yield('scripts')
 </body>
 
 </html>
