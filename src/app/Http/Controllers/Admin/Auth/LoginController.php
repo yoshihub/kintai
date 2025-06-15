@@ -15,6 +15,14 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ], [
+            'email.required' => 'メールアドレスを入力してください',
+            'password.required' => 'パスワードを入力してください',
+        ]);
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
