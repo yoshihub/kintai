@@ -1,0 +1,93 @@
+.detail-container{
+    max-width: 650px;
+    margin:30px auto;
+}
+
+.detail-title{
+    font-weight: bold;
+    font-size: 22px;
+    padding-left: 10px;
+    border-left: 4px solid #000;
+    display: inline-block;
+}
+
+.detail-table{
+    background-color: #FFFFFF;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:30px;
+    margin-bottom:20px;
+    border-radius: 5px;
+    border: 1px solid #E0E0E0;
+}
+
+.detail-table tr{
+    border-bottom:1px solid #F0F0F0;
+}
+
+.detail-table tr:last-child{
+    border-bottom:none;
+}
+
+.detail-table th {
+    width:40%;
+    padding: 15px 25px;
+    text-align: left;
+    color: #737373;
+}
+
+.detail-table td {
+    width: 60%;
+    padding: 15px 25px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: end;
+}
+
+.detail-table .name-td {
+    font-size: 14px;
+    padding-left: 35px;
+}
+
+.date-td{
+    width: 70px;
+    padding: 5px 12px;
+    font-size: 14px;
+}
+
+.time-input {
+    width: 90px;
+    padding: 5px 8px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.separator {
+    margin: 0 20px;
+    color: #666;
+}
+
+.memo-textarea {
+    width: 205px;
+    height: 70px;
+    padding: 5px 8px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.button-container button{
+    background-color: #000000;
+    color:white;
+    padding:8px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}

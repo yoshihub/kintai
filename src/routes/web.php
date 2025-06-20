@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AttendanceListController;
+use App\Http\Controllers\Admin\AdminAttendanceListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\AttendanceListController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -12,6 +13,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clockOut');
     Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])->name('attendance.breakStart');
     Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])->name('attendance.breakEnd');
+
+    Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance.list');
+    Route::get('/attendance/{id}', [AttendanceListController::class, 'detail'])->name('attendance.detail');
+    Route::put('/attendance/{id}', [AttendanceListController::class, 'update'])->name('attendance.update');
 });
 
 Route::middleware(['guest'])->group(function () {
@@ -24,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/attendance/list', [AttendanceListController::class, 'index']);
+    Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index']);
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {

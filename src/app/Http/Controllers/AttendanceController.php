@@ -18,6 +18,14 @@ class AttendanceController extends Controller
             ->first();
     }
 
+    /**
+     * 現在時刻を分単位（HH:MM形式、秒なし）で取得
+     */
+    private function getCurrentTimeInMinutes()
+    {
+        return now()->format('H:i');  // 秒を完全に排除
+    }
+
     public function index()
     {
         $attendance = $this->getTodayAttendance();
@@ -30,11 +38,11 @@ class AttendanceController extends Controller
         $user = Auth::user();
         $today = now()->toDateString();
 
-        // 新規出勤記録作成
+        // 新規出勤記録作成（分単位のみ）
         Attendance::create([
             'user_id' => $user->id,
             'date' => $today,
-            'clock_in' => now()->format('H:i:s'),
+            'clock_in' => $this->getCurrentTimeInMinutes(),
             'status' => 1
         ]);
 
@@ -47,7 +55,7 @@ class AttendanceController extends Controller
         $attendance = $this->getTodayAttendance();
 
         $attendance->update([
-            'clock_out' => now()->format('H:i:s'),
+            'clock_out' => $this->getCurrentTimeInMinutes(),
             'status' => 3
         ]);
 
@@ -61,7 +69,7 @@ class AttendanceController extends Controller
 
         BreakTime::create([
             'attendance_id' => $attendance->id,
-            'break_start' => now()->format('H:i:s')
+            'break_start' => $this->getCurrentTimeInMinutes()
         ]);
 
         $attendance->update(['status' => 2]);
@@ -76,7 +84,7 @@ class AttendanceController extends Controller
 
         $break = $attendance->breaks()->whereNull('break_end')->latest()->first();
         if ($break) {
-            $break->update(['break_end' => now()->format('H:i:s')]);
+            $break->update(['break_end' => $this->getCurrentTimeInMinutes()]);
         }
 
         $attendance->update(['status' => 1]);
