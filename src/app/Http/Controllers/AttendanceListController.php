@@ -36,7 +36,7 @@ class AttendanceListController extends Controller
                 return $item->date->format('Y-m-d') === $currentDate->format('Y-m-d');
             });
 
-            // 休憩時間を分単位で計算（秒は常に00なのでシンプルに）
+            // 休憩時間を分単位で計算
             $totalBreakMinutes = 0;
             $totalBreakTime = null;
             if ($attendance && $attendance->breaks->count() > 0) {
@@ -58,10 +58,10 @@ class AttendanceListController extends Controller
                 }
             }
 
-            // 合計勤務時間を分単位で計算（秒は常に00なのでシンプルに）
+            // 合計勤務時間を分単位で計算
             $totalWorkTime = null;
             if ($attendance && $attendance->clock_in && $attendance->clock_out) {
-                // 出勤・退勤時間を分単位で計算（秒は00なので直接計算可能）
+                // 出勤・退勤時間を分単位で計算
                 $clockInMinutes = $attendance->clock_in->hour * 60 + $attendance->clock_in->minute;
                 $clockOutMinutes = $attendance->clock_out->hour * 60 + $attendance->clock_out->minute;
 
@@ -80,7 +80,6 @@ class AttendanceListController extends Controller
             $attendanceData[] = [
                 'date' => $currentDate->format('m/d'),
                 'day_of_week' => ['日', '月', '火', '水', '木', '金', '土'][$currentDate->dayOfWeek],
-                // 分単位で表示（秒は不要）
                 'clock_in' => $attendance && $attendance->clock_in ? $attendance->clock_in->format('H:i') : null,
                 'clock_out' => $attendance && $attendance->clock_out ? $attendance->clock_out->format('H:i') : null,
                 'break_time' => $totalBreakTime,

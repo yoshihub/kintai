@@ -66,7 +66,7 @@
                 <tr>
                     <th>備考</th>
                     <td>
-                        <textarea class="memo-textarea" name="memo" placeholder="営業訪問のため">{{ $attendance->memo }}</textarea>
+                        <textarea class="memo-textarea" name="memo">{{ $attendance->memo }}</textarea>
                     </td>
                 </tr>
         </table>

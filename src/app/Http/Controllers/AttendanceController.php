@@ -23,7 +23,7 @@ class AttendanceController extends Controller
      */
     private function getCurrentTimeInMinutes()
     {
-        return now()->format('H:i');  // 秒を完全に排除
+        return now()->format('H:i');
     }
 
     public function index()
