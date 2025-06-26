@@ -16,9 +16,10 @@
     </div>
     @endif
 
-    <form action="{{ route('attendance.update', $attendance->id) }}" method="POST">
+    <!-- 修正申請フォーム -->
+    <form action="{{ route('stamp_correction_request.store') }}" method="POST">
         @csrf
-        @method('PUT')
+        <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
         <table class="detail-table">
             <tr>
@@ -35,9 +36,9 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    <input type="time" class="time-input" name="clock_in" value="{{ $attendance->clock_in ? $attendance->clock_in->format('H:i') : '' }}">
+                    <input type="time" class="time-input" name="start_time" value="{{ $attendance->clock_in ? $attendance->clock_in->format('H:i') : '' }}" required>
                     <span class="separator">〜</span>
-                    <input type="time" class="time-input" name="clock_out" value="{{ $attendance->clock_out ? $attendance->clock_out->format('H:i') : '' }}">
+                    <input type="time" class="time-input" name="end_time" value="{{ $attendance->clock_out ? $attendance->clock_out->format('H:i') : '' }}" required>
                 </td>
             </tr>
 
@@ -64,9 +65,9 @@
                 @endfor
 
                 <tr>
-                    <th>備考</th>
+                    <th>備考（修正理由）</th>
                     <td>
-                        <textarea class="memo-textarea" name="memo">{{ $attendance->memo }}</textarea>
+                        <textarea class="note-textarea" name="note" required placeholder="修正理由を入力してください"></textarea>
                     </td>
                 </tr>
         </table>
@@ -82,7 +83,13 @@
         @endif
 
         <div class="button-container">
+            @if($pendingRequest)
+            <div class="alert alert-warning" style="text-align: center; margin: 0;">
+                承認待ちのため修正はできません
+            </div>
+            @else
             <button type="submit">修正</button>
+            @endif
         </div>
     </form>
 </div>

@@ -33,7 +33,7 @@
             <nav class="nav-links">
                 <a href="{{ route('attendance.index') }}">勤怠</a>
                 <a href="/attendance/list">勤怠一覧</a>
-                <a href="#">申請</a>
+                <a href="{{ route('stamp_correction_request.list') }}">申請</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="logout-button">ログアウト</button>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\AttendanceListController;
+use App\Http\Controllers\StampCorrectionRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -17,6 +18,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance.list');
     Route::get('/attendance/{id}', [AttendanceListController::class, 'detail'])->name('attendance.detail');
     Route::put('/attendance/{id}', [AttendanceListController::class, 'update'])->name('attendance.update');
+
+    // 修正申請関連のルート
+    Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'list'])->name('stamp_correction_request.list');
+    Route::post('/stamp_correction_request', [StampCorrectionRequestController::class, 'store'])->name('stamp_correction_request.store');
 });
 
 Route::middleware(['guest'])->group(function () {

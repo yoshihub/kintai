@@ -50,6 +50,10 @@
 .month-btn:hover {
     background: #e0e0e0;
 }
+.month-btn.active {
+    background: #333;
+    color: #fff;
+}
 .attendance-month-label {
     display: flex;
     align-items: center;

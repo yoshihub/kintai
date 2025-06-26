@@ -12,7 +12,7 @@ class Attendance extends Model
         'clock_in',
         'clock_out',
         'status',
-        'memo'
+        'note'
     ];
 
     protected $casts = [

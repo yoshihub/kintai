@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\BreakTime;
+use App\Models\StampCorrectionRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateAttendanceRequest;
 
 class AttendanceListController extends Controller
 {
@@ -100,26 +102,23 @@ class AttendanceListController extends Controller
             ->where('user_id', auth()->id())
             ->findOrFail($id);
 
+        // 承認待ちの申請があるかチェック
+        $pendingRequest = StampCorrectionRequest::where('attendance_id', $attendance->id)
+            ->where('status', 'pending')
+            ->exists();
+
         return view('attendance.list.detail', [
-            'attendance' => $attendance
+            'attendance' => $attendance,
+            'pendingRequest' => $pendingRequest
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateAttendanceRequest $request, $id)
     {
-        $request->validate([
-            'clock_in' => 'nullable|date_format:H:i',
-            'clock_out' => 'nullable|date_format:H:i',
-            'breaks' => 'nullable|array',
-            'breaks.*.break_start' => 'nullable|date_format:H:i',
-            'breaks.*.break_end' => 'nullable|date_format:H:i',
-            'memo' => 'nullable|string|max:1000',
-        ]);
-
         $attendance = Attendance::where('user_id', auth()->id())->findOrFail($id);
 
         // 出勤・退勤時間の更新（HH:MM形式、秒なし）
-        $updateData = ['memo' => $request->memo];
+        $updateData = ['note' => $request->note];
         if ($request->clock_in) {
             $updateData['clock_in'] = $request->clock_in;  // 秒を完全に排除
         }
