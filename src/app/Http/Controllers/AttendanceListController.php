@@ -113,6 +113,8 @@ class AttendanceListController extends Controller
         ]);
     }
 
+
+
     public function update(UpdateAttendanceRequest $request, $id)
     {
         $attendance = Attendance::where('user_id', auth()->id())->findOrFail($id);

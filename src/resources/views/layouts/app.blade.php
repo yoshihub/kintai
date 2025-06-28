@@ -21,7 +21,7 @@
             </div>
             @if (Auth::guard('admin')->check())
             <nav class="nav-links">
-                <a href="/admin/attendance/list">勤怠一覧</a>
+                <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
                 <a href="#">スタッフ一覧</a>
                 <a href="#">申請一覧</a>
                 <form method="POST" action="{{ route('admin.logout') }}">
@@ -32,7 +32,7 @@
             @elseif (Auth::check())
             <nav class="nav-links">
                 <a href="{{ route('attendance.index') }}">勤怠</a>
-                <a href="/attendance/list">勤怠一覧</a>
+                <a href="{{ route('attendance.list') }}">勤怠一覧</a>
                 <a href="{{ route('stamp_correction_request.list') }}">申請</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -34,7 +34,9 @@ Route::middleware(['guest'])->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index']);
+    Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.list');
+    Route::get('/admin/attendance/detail', [AdminAttendanceListController::class, 'detail'])->name('admin.attendance.detail');
+    Route::put('/admin/attendance/{id}', [AdminAttendanceListController::class, 'update'])->name('admin.attendance.update');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
