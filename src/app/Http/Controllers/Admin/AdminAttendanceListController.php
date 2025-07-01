@@ -90,7 +90,7 @@ class AdminAttendanceListController extends Controller
         $date = $request->get('date');
 
         if (!$userId || !$date) {
-            abort(404);
+            abort(404, "必要なパラメータが不足しています。user_id: $userId, date: $date");
         }
 
         $attendance = Attendance::with(['breaks', 'user'])

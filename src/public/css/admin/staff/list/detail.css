@@ -1,0 +1,114 @@
+.attendance-list-outer {
+    max-width: 650px;
+    margin: 32px auto;
+    padding: 0;
+}
+
+.attendance-title-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    margin-left: 6px;
+}
+.bar {
+    display: inline-block;
+    width: 5px;
+    height: 22px;
+    background: #111;
+    border-radius: 2px;
+    margin-right: 10px;
+}
+.attendance-title {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+}
+
+.attendance-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    padding: 16px 32px 16px 32px;
+    margin-bottom: 0;
+    gap: 0;
+}
+.month-btn {
+    background: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 28px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #222;
+    transition: background 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    text-decoration: none;
+}
+.month-btn:hover {
+    background: #e0e0e0;
+}
+.month-btn.active {
+    background: #333;
+    color: #fff;
+}
+.attendance-month-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 36px;
+    letter-spacing: 0.04em;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin: 0 12px;
+    gap: 8px;
+}
+.attendance-month-label .calendar-icon {
+    font-size: 18px;
+    margin-right: 6px;
+    color: #222;
+}
+
+.attendance-table-area {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 0 0 8px 0;
+}
+.attendance-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 15px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+.attendance-table th, .attendance-table td {
+    padding: 7px 0;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.attendance-table th {
+    background: #f7f7f7;
+    font-weight: bold;
+    font-size: 15px;
+    border-top: 1px solid #eee;
+}
+.attendance-table tr:last-child td {
+    border-bottom: none;
+}
+.detail-link {
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}

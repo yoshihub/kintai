@@ -22,7 +22,7 @@
             @if (Auth::guard('admin')->check())
             <nav class="nav-links">
                 <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
-                <a href="#">スタッフ一覧</a>
+                <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
                 <a href="#">申請一覧</a>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf

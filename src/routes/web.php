@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAttendanceListController;
+use App\Http\Controllers\Admin\AdminStaffListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\AdminLoginController;
@@ -37,6 +38,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.list');
     Route::get('/admin/attendance/detail', [AdminAttendanceListController::class, 'detail'])->name('admin.attendance.detail');
     Route::put('/admin/attendance/{id}', [AdminAttendanceListController::class, 'update'])->name('admin.attendance.update');
+    Route::get('/admin/staff/list', [AdminStaffListController::class, 'index'])->name('admin.staff.list');
+    Route::get('/admin/attendance/staff/{id}', [AdminStaffListController::class, 'detail'])->name('admin.attendance.staff');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {

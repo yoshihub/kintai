@@ -1,0 +1,95 @@
+/* スタッフ一覧ページのスタイル */
+
+.staff-content__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.staff-content__heading {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.staff-content__heading h2 {
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 12px;
+    border-left:4px solid #000000;
+}
+
+.staff-table {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+}
+
+.staff-table__inner {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-table__row {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.staff-table__row:first-child {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.staff-table__row:last-child {
+    border-bottom: none;
+}
+
+.staff-table__header {
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 600;
+    color: #333333;
+    font-size: 14px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.staff-table__header:last-child {
+    border-right: none;
+}
+
+.staff-table__item {
+    padding: 10px;
+    color: #333333;
+    font-size: 14px;
+    border-right: 1px solid #e0e0e0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.staff-table__item:last-child {
+    border-right: none;
+}
+
+.staff-table__detail-link {
+    display: inline-block;
+    background-color: #4285f4;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.staff-table__detail-link:hover {
+    background-color: #3367d6;
+}
+
+.staff-table__header:nth-child(1),
+.staff-table__item:nth-child(1) { width: 30%; } /* 名前 */
+
+.staff-table__header:nth-child(2),
+.staff-table__item:nth-child(2) { width: 50%; } /* メールアドレス */
+
+.staff-table__header:nth-child(3),
+.staff-table__item:nth-child(3) { width: 20%; } /* 月次勤怠 */
