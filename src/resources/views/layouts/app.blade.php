@@ -23,7 +23,7 @@
             <nav class="nav-links">
                 <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
                 <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
-                <a href="#">申請一覧</a>
+                <a href="{{ route('stamp_correction_request.list') }}">申請一覧</a>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button type="submit" class="logout-button">管理者ログアウト</button>

@@ -20,10 +20,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance/{id}', [AttendanceListController::class, 'detail'])->name('attendance.detail');
     Route::put('/attendance/{id}', [AttendanceListController::class, 'update'])->name('attendance.update');
 
-    // 修正申請関連のルート
-    Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'list'])->name('stamp_correction_request.list');
+    // 修正申請作成（一般ユーザーのみ）
     Route::post('/stamp_correction_request', [StampCorrectionRequestController::class, 'store'])->name('stamp_correction_request.store');
 });
+
+// 修正申請一覧（管理者と一般ユーザー両方がアクセス可能）
+Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'list'])
+    ->middleware(['auth:web,admin'])
+    ->name('stamp_correction_request.list');
 
 Route::middleware(['guest'])->group(function () {
     // 一般ユーザーログインフォーム表示

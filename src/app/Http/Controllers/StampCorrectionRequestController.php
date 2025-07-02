@@ -17,8 +17,16 @@ class StampCorrectionRequestController extends Controller
     {
         $status = $request->get('status', 'pending');
 
-        $requestsQuery = StampCorrectionRequest::with(['attendance', 'user'])
-            ->where('user_id', Auth::id());
+        $requestsQuery = StampCorrectionRequest::with(['attendance', 'user']);
+
+        // 管理者の場合は全ユーザーの申請を表示、一般ユーザーの場合は自分の申請のみ
+        if (Auth::guard('admin')->check()) {
+            // 管理者: 全ユーザーの申請を表示
+            // クエリに追加条件なし
+        } else {
+            // 一般ユーザー: 自分の申請のみ
+            $requestsQuery->where('user_id', Auth::id());
+        }
 
         // ステータスによるフィルタリング
         if ($status === 'pending') {
@@ -29,7 +37,10 @@ class StampCorrectionRequestController extends Controller
 
         $requests = $requestsQuery->orderBy('created_at', 'desc')->get();
 
-        return view('stamp_correction_request.list', compact('requests', 'status'));
+        // 管理者かどうかの判定を渡す
+        $isAdmin = Auth::guard('admin')->check();
+
+        return view('stamp_correction_request.list', compact('requests', 'status', 'isAdmin'));
     }
 
     /**

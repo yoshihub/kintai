@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\User;
+use App\Models\StampCorrectionRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAdminAttendanceRequest;
@@ -135,6 +136,11 @@ class AdminAttendanceListController extends Controller
                 }
             }
         }
+
+        // 該当する打刻修正リクエストのステータスを承認済みに更新
+        StampCorrectionRequest::where('attendance_id', $attendance->id)
+            ->where('status', 'pending')
+            ->update(['status' => 'approved']);
 
         return redirect()->route('admin.attendance.detail', [
             'user_id' => $attendance->user_id,

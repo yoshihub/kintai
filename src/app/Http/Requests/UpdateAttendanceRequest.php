@@ -67,7 +67,7 @@ class UpdateAttendanceRequest extends FormRequest
                     if (!empty($break['break_start'])) {
                         $breakStart = Carbon::createFromFormat('H:i', $break['break_start']);
                         if ($breakStart->gt($endTime)) {
-                            $validator->errors()->add("breaks.{$key}.break_start", '休憩時間が不適切な値です');
+                            $validator->errors()->add("breaks.{$key}.break_start", '休憩時間が勤務時間外です');
                         }
                     }
 
@@ -75,7 +75,7 @@ class UpdateAttendanceRequest extends FormRequest
                     if (!empty($break['break_end'])) {
                         $breakEnd = Carbon::createFromFormat('H:i', $break['break_end']);
                         if ($breakEnd->gt($endTime)) {
-                            $validator->errors()->add("breaks.{$key}.break_end", '出勤時間もしくは退勤時間が不適切な値です');
+                            $validator->errors()->add("breaks.{$key}.break_end", '休憩時間が勤務時間外です');
                         }
                     }
                 }
