@@ -57,7 +57,7 @@
                     <td>{{ $request->created_at->format('Y/m/d') }}</td>
                     <td>
                         @if($isAdmin ?? false)
-                        <a href="{{ route('admin.attendance.detail', ['user_id' => $request->user_id, 'date' => $request->attendance->date->format('Y-m-d')]) }}" class="detail-link">詳細</a>
+                        <a href="{{ route('admin.stamp_correction_request.approve', $request->id) }}" class="detail-link">詳細</a>
                         @else
                         <a href="{{ route('attendance.detail', ['id' => $request->attendance_id]) }}" class="detail-link">詳細</a>
                         @endif

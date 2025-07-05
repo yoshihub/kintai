@@ -77,4 +77,49 @@ class StampCorrectionRequestController extends Controller
         return redirect()->route('stamp_correction_request.list')
             ->with('success', '修正申請を提出しました');
     }
+
+    /**
+     * 修正申請承認画面を表示（管理者用）
+     */
+    public function showApproval($attendance_correct_request)
+    {
+        $correctionRequest = StampCorrectionRequest::with(['attendance', 'user'])->findOrFail($attendance_correct_request);
+
+        return view('admin.stamp_correction_request.approve', compact('correctionRequest'));
+    }
+
+    /**
+     * 修正申請を承認（管理者用）
+     */
+    public function approve($attendance_correct_request)
+    {
+        $correctionRequest = StampCorrectionRequest::with('attendance')->findOrFail($attendance_correct_request);
+
+        // 勤怠データを修正申請内容で更新
+        $attendance = $correctionRequest->attendance;
+        $attendance->clock_in = $correctionRequest->start_time;
+        $attendance->clock_out = $correctionRequest->end_time;
+        $attendance->save();
+
+        // 既存の休憩データを削除
+        $attendance->breaks()->delete();
+
+        // 修正申請の休憩データを保存
+        if ($correctionRequest->breaks) {
+            foreach ($correctionRequest->breaks as $breakData) {
+                if (!empty($breakData['break_start']) && !empty($breakData['break_end'])) {
+                    $attendance->breaks()->create([
+                        'break_start' => $breakData['break_start'],
+                        'break_end' => $breakData['break_end'],
+                    ]);
+                }
+            }
+        }
+
+        // 修正申請のステータスを承認済みに更新
+        $correctionRequest->update(['status' => 'approved']);
+
+        return redirect()->route('stamp_correction_request.list')
+            ->with('success', '修正申請を承認しました');
+    }
 }

@@ -67,7 +67,7 @@
                 <tr>
                     <th>備考</th>
                     <td>
-                        <textarea class="note-textarea" name="note" placeholder="備考があれば入力してください">{{ old('note', $attendance->note) }}</textarea>
+                        <textarea class="note-textarea" name="note">{{ old('note', $attendance->note) }}</textarea>
                     </td>
                 </tr>
         </table>

@@ -67,7 +67,7 @@
                 <tr>
                     <th>備考（修正理由）</th>
                     <td>
-                        <textarea class="note-textarea" name="note" required placeholder="修正理由を入力してください"></textarea>
+                        <textarea class="note-textarea" name="note">{{ old('note', $attendance->note) }}</textarea>
                     </td>
                 </tr>
         </table>

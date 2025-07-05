@@ -44,6 +44,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/admin/attendance/{id}', [AdminAttendanceListController::class, 'update'])->name('admin.attendance.update');
     Route::get('/admin/staff/list', [AdminStaffListController::class, 'index'])->name('admin.staff.list');
     Route::get('/admin/attendance/staff/{id}', [AdminStaffListController::class, 'detail'])->name('admin.attendance.staff');
+
+    // 修正申請承認画面
+    Route::get('/stamp_correction_request/approve/{attendance_correct_request}', [StampCorrectionRequestController::class, 'showApproval'])->name('admin.stamp_correction_request.approve');
+    Route::post('/stamp_correction_request/approve/{attendance_correct_request}', [StampCorrectionRequestController::class, 'approve'])->name('admin.stamp_correction_request.approve.submit');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
