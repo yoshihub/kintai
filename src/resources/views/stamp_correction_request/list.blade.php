@@ -30,9 +30,7 @@
             <thead>
                 <tr>
                     <th>承認状況</th>
-                    @if($isAdmin ?? false)
                     <th>名前</th>
-                    @endif
                     <th>対象日時</th>
                     <th>申請理由</th>
                     <th>申請日時</th>
@@ -49,9 +47,7 @@
                         <span class="status-badge status-approved">承認済み</span>
                         @endif
                     </td>
-                    @if($isAdmin ?? false)
                     <td>{{ $request->user->name }}</td>
-                    @endif
                     <td>{{ $request->attendance->date->format('Y/m/d') }}</td>
                     <td>{{ $request->note ?? '遅刻のため' }}</td>
                     <td>{{ $request->created_at->format('Y/m/d') }}</td>

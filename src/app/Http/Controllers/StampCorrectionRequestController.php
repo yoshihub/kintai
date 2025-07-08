@@ -99,6 +99,7 @@ class StampCorrectionRequestController extends Controller
         $attendance = $correctionRequest->attendance;
         $attendance->clock_in = $correctionRequest->start_time;
         $attendance->clock_out = $correctionRequest->end_time;
+        $attendance->note = $correctionRequest->note;
         $attendance->save();
 
         // 既存の休憩データを削除
