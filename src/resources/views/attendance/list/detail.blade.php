@@ -36,9 +36,9 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    <input type="time" class="time-input" name="start_time" value="{{ $attendance->clock_in ? $attendance->clock_in->format('H:i') : '' }}" required>
+                    <input type="time" class="time-input" name="start_time" value="{{ old('start_time', $attendance->clock_in ? $attendance->clock_in->format('H:i') : '') }}" required>
                     <span class="separator">〜</span>
-                    <input type="time" class="time-input" name="end_time" value="{{ $attendance->clock_out ? $attendance->clock_out->format('H:i') : '' }}" required>
+                    <input type="time" class="time-input" name="end_time" value="{{ old('end_time', $attendance->clock_out ? $attendance->clock_out->format('H:i') : '') }}" required>
                 </td>
             </tr>
 
@@ -57,9 +57,9 @@
                 <tr>
                     <th>休憩{{ $breakNumber == 1 ? '' : $breakNumber }}</th>
                     <td>
-                        <input type="time" class="time-input" name="breaks[{{ $i }}][break_start]" value="{{ $break && $break->break_start ? $break->break_start->format('H:i') : '' }}">
+                        <input type="time" class="time-input" name="breaks[{{ $i }}][break_start]" value="{{ old("breaks.{$i}.break_start", $break && $break->break_start ? $break->break_start->format('H:i') : '') }}">
                         <span class="separator">〜</span>
-                        <input type="time" class="time-input" name="breaks[{{ $i }}][break_end]" value="{{ $break && $break->break_end ? $break->break_end->format('H:i') : '' }}">
+                        <input type="time" class="time-input" name="breaks[{{ $i }}][break_end]" value="{{ old("breaks.{$i}.break_end", $break && $break->break_end ? $break->break_end->format('H:i') : '') }}">
                     </td>
                 </tr>
                 @endfor
