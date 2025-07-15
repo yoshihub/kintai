@@ -37,12 +37,7 @@
                     <td>{{ $data['total_time'] ?: '' }}</td>
                     <td>
                         @if($data['id'])
-                        @php
-                        // 月日から完全な日付を作成（例:01/15 → 2024-01-15）
-                        $day = sprintf('%02d', explode('/', $data['date'])[1]);
-                        $fullDate = $currentDate->format('Y-m') . '-' . $day;
-                        @endphp
-                        <a href="{{ route('admin.attendance.detail', ['user_id' => $user->id, 'date' => $fullDate]) }}" class="detail-link">詳細</a>
+                        <a href="{{ route('admin.attendance.detail', $data['id']) }}" class="detail-link">詳細</a>
                         @endif
                     </td>
                 </tr>

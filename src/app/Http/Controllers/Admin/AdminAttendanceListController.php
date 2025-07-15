@@ -56,6 +56,7 @@ class AdminAttendanceListController extends Controller
 
             return [
                 'user_id' => $user->id,
+                'attendance_id' => $attendance ? $attendance->id : null,
                 'name' => $user->name,
                 'clock_in' => $attendance ? $attendance->clock_in : null,
                 'clock_out' => $attendance ? $attendance->clock_out : null,
@@ -85,23 +86,9 @@ class AdminAttendanceListController extends Controller
     /**
      * 管理者用の勤怠詳細表示
      */
-    public function detail(Request $request)
+    public function detail($id)
     {
-        $userId = $request->get('user_id');
-        $date = $request->get('date');
-
-        if (!$userId || !$date) {
-            abort(404, "必要なパラメータが不足しています。user_id: $userId, date: $date");
-        }
-
-        $attendance = Attendance::with(['breaks', 'user'])
-            ->where('user_id', $userId)
-            ->whereDate('date', $date)
-            ->first();
-
-        if (!$attendance) {
-            abort(404, '指定された日付の勤怠データが見つかりません。');
-        }
+        $attendance = Attendance::with(['breaks', 'user'])->findOrFail($id);
 
         return view('admin.attendance.list.detail', [
             'attendance' => $attendance
@@ -142,9 +129,7 @@ class AdminAttendanceListController extends Controller
             ->where('status', 'pending')
             ->update(['status' => 'approved']);
 
-        return redirect()->route('admin.attendance.detail', [
-            'user_id' => $attendance->user_id,
-            'date' => $attendance->date->format('Y-m-d')
-        ])->with('success', '勤怠データを修正しました。');
+        return redirect()->route('admin.attendance.detail', $attendance->id)
+            ->with('success', '勤怠データを修正しました。');
     }
 }

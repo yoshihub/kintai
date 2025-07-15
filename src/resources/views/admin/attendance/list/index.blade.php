@@ -42,8 +42,8 @@
                     <td>{{ $data['total_break_time'] }}</td>
                     <td>{{ $data['total_working_time'] }}</td>
                     <td>
-                        @if($data['clock_in'] || $data['clock_out'])
-                        <a href="{{ route('admin.attendance.detail', ['user_id' => $data['user_id'], 'date' => $selectedDate->format('Y-m-d')]) }}" class="detail-link">詳細</a>
+                        @if($data['attendance_id'])
+                        <a href="{{ route('admin.attendance.detail', $data['attendance_id']) }}" class="detail-link">詳細</a>
                         @endif
                     </td>
                 </tr>

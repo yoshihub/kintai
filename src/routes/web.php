@@ -40,7 +40,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.list');
-    Route::get('/admin/attendance/detail', [AdminAttendanceListController::class, 'detail'])->name('admin.attendance.detail');
+    Route::get('/admin/attendance/{id}', [AdminAttendanceListController::class, 'detail'])->name('admin.attendance.detail');
     Route::put('/admin/attendance/{id}', [AdminAttendanceListController::class, 'update'])->name('admin.attendance.update');
     Route::get('/admin/staff/list', [AdminStaffListController::class, 'index'])->name('admin.staff.list');
     Route::get('/admin/attendance/staff/{id}', [AdminStaffListController::class, 'detail'])->name('admin.attendance.staff');
