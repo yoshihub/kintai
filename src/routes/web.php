@@ -9,7 +9,7 @@ use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\StampCorrectionRequestController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clockIn');
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clockOut');
@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
 
 // 修正申請一覧（管理者と一般ユーザー両方がアクセス可能）
 Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'list'])
-    ->middleware(['auth:web,admin'])
+    ->middleware(['auth:web,admin', 'verified'])
     ->name('stamp_correction_request.list');
 
 Route::middleware(['guest'])->group(function () {

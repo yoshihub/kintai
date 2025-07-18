@@ -162,7 +162,7 @@ return [
     'features' => [
         Features::registration(), // 会員登録
         Features::resetPasswords(), // パスワードリセット
-        // Features::emailVerification(), // メール認証
+        Features::emailVerification(), // メール認証
     ],
 
 ];
