@@ -45,5 +45,8 @@
             </tbody>
         </table>
     </div>
+    <div class="csv-export-section">
+        <a href="{{ route('admin.attendance.staff.csv', ['id' => $user->id, 'date' => $currentDate->format('Y-m')]) }}" class="csv-export-btn">CSV出力</a>
+    </div>
 </div>
 @endsection
