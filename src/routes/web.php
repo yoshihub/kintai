@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\StampCorrectionRequestController;
+use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -37,6 +38,16 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
+
+// メール認証関連ルート（authのみ、verifiedは不要）
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email/verification-manual', [EmailVerificationController::class, 'showVerificationForm'])->name('verification.manual');
+    Route::post('/email/verify-code', [EmailVerificationController::class, 'verifyCode'])->name('verification.verify-code');
+    Route::post('/email/generate-code', [EmailVerificationController::class, 'generateCode'])->name('verification.generate-code');
+
+    // カスタム認証メール再送（Fortifyのverification.sendより優先）
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resendNotification'])->name('verification.send');
+});
 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.list');
