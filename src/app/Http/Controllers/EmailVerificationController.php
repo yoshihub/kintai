@@ -27,14 +27,19 @@ class EmailVerificationController extends Controller
             return redirect()->route('attendance.index');
         }
 
-        // 既存のコードがあるかチェック（新しく生成しない）
+        // 既存のコードがあるかチェック
         $cachedCode = Cache::get("email_verification_code_{$user->id}");
 
-        // デバッグ情報（一時的）
+        // コードがない場合（期限切れなど）は新しいコードを生成
         if (!$cachedCode) {
-            session()->flash('debug_info', '認証コードが見つかりません。メール認証画面から再度お試しください。');
-            return redirect()->route('verification.notice')
-                ->with('resent', true);
+            // 新しい認証コードを生成
+            $this->generateVerificationCode($user->id);
+
+            // 認証メールを送信
+            $user->sendEmailVerificationNotification();
+
+            // 成功メッセージを設定
+            session()->flash('resent', true);
         }
 
         return view('auth.verification-code');
@@ -60,17 +65,9 @@ class EmailVerificationController extends Controller
 
         $cachedCode = Cache::get("email_verification_code_{$user->id}");
 
-        // デバッグ情報（一時的）
-        Log::info("認証コード検証", [
-            'user_id' => $user->id,
-            'input_code' => $request->verification_code,
-            'cached_code' => $cachedCode,
-            'cache_key' => "email_verification_code_{$user->id}"
-        ]);
-
         if (!$cachedCode || $cachedCode !== $request->verification_code) {
             return back()->withErrors([
-                'verification_code' => '認証コードが正しくありません。入力コード: ' . $request->verification_code . ' / 保存コード: ' . ($cachedCode ?? 'なし')
+                'verification_code' => '認証コードが正しくありません。'
             ])->withInput();
         }
 

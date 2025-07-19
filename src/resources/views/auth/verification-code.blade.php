@@ -17,6 +17,12 @@
         </div>
         @endif
 
+        @if (session('resent'))
+        <div class="alert alert-success" role="alert">
+            新しい認証コードを生成しました。メールをご確認ください。
+        </div>
+        @endif
+
         @if (session('code_generated'))
         <div class="alert alert-success" role="alert">
             {{ session('code_generated') }}
