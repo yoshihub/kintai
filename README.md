@@ -81,7 +81,7 @@ git clone git@github.com:yoshihub/flema.git
 -   MySQL 8.0.26
 
 ## ER 図
-![スクリーンショット 2025-05-18 15 27 26](https://github.com/user-attachments/assets/d0815330-a10a-4c20-8cc3-bc51300d4e9c)
+![ER図](https://github.com/user-attachments/assets/bbd15235-6849-46fc-8f15-56ac92092f3c)
 
 
 
