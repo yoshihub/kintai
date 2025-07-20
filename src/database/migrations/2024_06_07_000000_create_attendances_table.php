@@ -17,6 +17,8 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0); // 0:勤務外, 1:出勤中, 2:休憩中, 3:退勤済
             $table->text('note')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
