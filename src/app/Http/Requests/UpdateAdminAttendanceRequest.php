@@ -76,7 +76,7 @@ class UpdateAdminAttendanceRequest extends FormRequest
         }
 
         if ($hasBreakTimeError) {
-            $validator->errors()->add('break_time', '休憩時間が勤務時間外です。');
+            $validator->errors()->add('break_time', '出勤時間もしくは退勤時間が不適切な値です');
         }
     }
 
@@ -85,7 +85,7 @@ class UpdateAdminAttendanceRequest extends FormRequest
         $note = $this->input('note');
 
         if (empty(trim($note))) {
-            $validator->errors()->add('note', '備考を記入してください。');
+            $validator->errors()->add('note', '備考を記入してください');
         }
     }
 
