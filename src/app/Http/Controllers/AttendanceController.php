@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\BreakTime;
 use Illuminate\Support\Facades\Auth;
