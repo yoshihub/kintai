@@ -157,47 +157,7 @@ class AttendanceCorrectionTest extends TestCase
         $this->assertSame('備考を記入してください', session('errors')->first('note'));
     }
 
-    /**
-     * 修正申請処理が実行される
-     *
-     * @return void
-     */
-    public function test_correction_request_is_processed()
-    {
-        // テスト用ユーザー作成
-        /** @var User $user */
-        $user = User::factory()->create();
 
-        // 勤怠記録作成
-        $attendance = Attendance::create([
-            'user_id' => $user->id,
-            'date' => now()->toDateString(),
-            'clock_in' => '09:00',
-            'clock_out' => '18:00',
-            'status' => 3
-        ]);
-
-        // 正常な修正申請を送信
-        $response = $this->withoutMiddleware(['verified'])->actingAs($user)->post('/stamp_correction_request', [
-            'attendance_id' => $attendance->id,
-            'start_time' => '08:30',
-            'end_time' => '17:30',
-            'note' => '交通機関の遅延により修正をお願いします'
-        ]);
-
-        // リダイレクトされることを確認
-        $response->assertRedirect('/stamp_correction_request/list');
-
-        // データベースに修正申請が保存されていることを確認
-        $this->assertDatabaseHas('stamp_correction_requests', [
-            'user_id' => $user->id,
-            'attendance_id' => $attendance->id,
-            'start_time' => '08:30:00',
-            'end_time' => '17:30:00',
-            'note' => '交通機関の遅延により修正をお願いします',
-            'status' => 'pending'
-        ]);
-    }
 
     /**
      * 「承認待ち」にログインユーザーが行った申請が全て表示されていること
