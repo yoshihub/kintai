@@ -5,7 +5,7 @@
 ### Docker ビルド
 
 ```bash
-git clone git@github.com:yoshihub/flema.git
+git clone git@github.com:yoshihub/kintai.git
 ```
 
 1. DockerDesktop アプリを立ち上げる
