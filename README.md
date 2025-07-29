@@ -7,6 +7,9 @@
 ```bash
 git clone git@github.com:yoshihub/kintai.git
 ```
+```bash
+cd kintai
+```
 
 1. DockerDesktop アプリを立ち上げる
 2. 以下のコマンドを実行して Docker をビルド
