@@ -4,15 +4,17 @@
 
 ### Docker ビルド
 
+1. 勤怠管理システムプロジェクトをクローン
 ```bash
 git clone git@github.com:yoshihub/kintai.git
 ```
+2. 勤怠管理システムプロジェクトのディレクトリに移動
 ```bash
 cd kintai
 ```
 
-1. DockerDesktop アプリを立ち上げる
-2. 以下のコマンドを実行して Docker をビルド
+3. DockerDesktop アプリを立ち上げる
+4. 以下のコマンドを実行して Docker をビルド
     ```bash
     docker-compose up -d --build
     ```
