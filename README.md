@@ -143,7 +143,19 @@ cd kintai
 
 ## stamp_correction_requestsテーブル
 
-| カラム名      | 型                       | PRIMARY KEY | UNIQUE
+| カラム名           | 型                          | PRIMARY KEY | UNIQUE KEY | NOT NULL |   FOREIGN KEY   |
+| -------------- | -------------------------- | :---------: | :--------: | :------: | :-------------: |
+| id             | bigint unsigned            |      ○      |            |     ○    |                 |
+| user\_id       | bigint unsigned            |             |            |     ○    |    users(id)    |
+| attendance\_id | bigint unsigned            |             |            |     ○    | attendances(id) |
+| start\_time    | time                       |             |            |     ○    |                 |
+| end\_time      | time                       |             |            |     ○    |                 |
+| breaks         | json                       |             |            |          |                 |
+| note           | text                       |             |            |     ○    |                 |
+| status         | enum('pending','approved') |             |            |     ○    |                 |
+| created\_at    | timestamp                  |             |            |          |                 |
+| updated\_at    | timestamp                  |             |            |          |                 |
+
 
 
 
