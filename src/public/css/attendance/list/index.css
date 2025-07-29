@@ -1,5 +1,5 @@
 .attendance-list-outer {
-    max-width: 650px;
+    max-width: 900px;
     margin: 32px auto;
     padding: 0;
 }
@@ -44,6 +44,7 @@
     cursor: pointer;
     font-weight: bold;
     color: #222;
+    text-decoration: none;
     transition: background 0.2s;
     box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
@@ -89,11 +90,44 @@
     background: #fff;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
+    table-layout: fixed;
 }
 .attendance-table th, .attendance-table td {
-    padding: 7px 0;
+    padding: 7px 8px;
     text-align: center;
     border-bottom: 1px solid #eee;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* 各列の幅を指定 */
+.attendance-table th:nth-child(1), .attendance-table td:nth-child(1) {
+    width: 12%;
+}
+.attendance-table th:nth-child(2), .attendance-table td:nth-child(2) {
+    width: 15%;
+}
+.attendance-table th:nth-child(3), .attendance-table td:nth-child(3) {
+    width: 15%;
+}
+.attendance-table th:nth-child(4), .attendance-table td:nth-child(4) {
+    width: 30%;
+    line-height: 1.4;
+    max-height: 60px;
+    overflow: hidden;
+}
+.attendance-table th:nth-child(4) {
+    text-align: center;
+}
+.attendance-table td:nth-child(4) {
+    text-align: left;
+}
+.attendance-table th:nth-child(5), .attendance-table td:nth-child(5) {
+    width: 20%;
+    white-space: nowrap;
+}
+.attendance-table th:nth-child(6), .attendance-table td:nth-child(6) {
+    width: 8%;
 }
 .attendance-table th {
     background: #f7f7f7;
