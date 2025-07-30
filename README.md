@@ -4,12 +4,17 @@
 
 ### Docker ビルド
 
+1. 勤怠管理システムプロジェクトをクローン
 ```bash
-git clone git@github.com:yoshihub/flema.git
+git clone git@github.com:yoshihub/kintai.git
+```
+2. 勤怠管理システムプロジェクトのディレクトリに移動
+```bash
+cd kintai
 ```
 
-1. DockerDesktop アプリを立ち上げる
-2. 以下のコマンドを実行して Docker をビルド
+3. DockerDesktop アプリを立ち上げる
+4. 以下のコマンドを実行して Docker をビルド
     ```bash
     docker-compose up -d --build
     ```
@@ -83,11 +88,81 @@ git clone git@github.com:yoshihub/flema.git
 ## ER 図
 ![ER図](https://github.com/user-attachments/assets/bbd15235-6849-46fc-8f15-56ac92092f3c)
 
+## テーブル仕様
+## usersテーブル
+
+| カラム名                     | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|------------------------------|-----------------|:-----------:|:----------:|:--------:|:-----------:|
+| id                           | bigint unsigned |     ◯       |            |    ◯     |             |
+| name                         | varchar(255)    |             |            |    ◯     |             |
+| email                        | varchar(255)    |             |     ◯      |    ◯     |             |
+| email_verified_at            | timestamp       |             |            |          |             |
+| password                     | varchar(255)    |             |            |    ◯     |             |
+| remember_token               | varchar(100)    |             |            |          |             |
+| two_factor_secret            | text            |             |            |          |             |
+| two_factor_recovery_codes    | text            |             |            |          |             |
+| created_at                   | timestamp       |             |            |          |             |
+| updated_at                   | timestamp       |             |            |          |             |
+
+## attendancesテーブル
+
+| カラム名     | 型               | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY  |
+|--------------|------------------|:-----------:|:----------:|:--------:|:------------:|
+| id           | bigint unsigned  |     ◯       |            |    ◯     |              |
+| user_id      | bigint unsigned  |             |            |    ◯     | users(id)    |
+| date         | date             |             |            |    ◯     |              |
+| clock_in     | time             |             |            |          |              |
+| clock_out    | time             |             |            |          |              |
+| status       | tinyint(1)       |             |            |    ◯     |              |
+| note         | text             |             |            |          |              |
+| created_at   | timestamp        |             |            |          |              |
+| updated_at   | timestamp        |             |            |          |              |
+
+## breaksテーブル
+
+| カラム名        | 型               | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY       |
+|-----------------|------------------|:-----------:|:----------:|:--------:|:-----------------:|
+| id              | bigint unsigned  |     ◯       |            |    ◯     |                   |
+| attendance_id   | bigint unsigned  |             |            |    ◯     | attendances(id)   |
+| break_start     | time             |             |            |    ◯     |                   |
+| break_end       | time             |             |            |          |                   |
+| created_at      | timestamp        |             |            |          |                   |
+| updated_at      | timestamp        |             |            |          |                   |
+
+## adminsテーブル
+
+| カラム名           | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|--------------------|-----------------|:-----------:|:----------:|:--------:|:-----------:|
+| id                 | bigint unsigned |     ◯       |            |    ◯     |             |
+| name               | varchar(255)    |             |            |    ◯     |             |
+| email              | varchar(255)    |             |     ◯      |    ◯     |             |
+| email_verified_at  | timestamp       |             |            |          |             |
+| password           | varchar(255)    |             |            |    ◯     |             |
+| created_at         | timestamp       |             |            |          |             |
+| updated_at         | timestamp       |             |            |          |             |
+
+## stamp_correction_requestsテーブル
+
+| カラム名           | 型                          | PRIMARY KEY | UNIQUE KEY | NOT NULL |   FOREIGN KEY   |
+| -------------- | -------------------------- | :---------: | :--------: | :------: | :-------------: |
+| id             | bigint unsigned            |      ○      |            |     ○    |                 |
+| user\_id       | bigint unsigned            |             |            |     ○    |    users(id)    |
+| attendance\_id | bigint unsigned            |             |            |     ○    | attendances(id) |
+| start\_time    | time                       |             |            |     ○    |                 |
+| end\_time      | time                       |             |            |     ○    |                 |
+| breaks         | json                       |             |            |          |                 |
+| note           | text                       |             |            |     ○    |                 |
+| status         | enum('pending','approved') |             |            |     ○    |                 |
+| created\_at    | timestamp                  |             |            |          |                 |
+| updated\_at    | timestamp                  |             |            |          |                 |
+
+
+
 
 
 ## アクセス URL
 
--   開発環境：http://localhost/
+-   開発環境：http://localhost/login
 -   phpMyAdmin：http://localhost:8080/
 
 ## 認証済みユーザーアカウント
